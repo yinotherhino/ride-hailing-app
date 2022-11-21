@@ -1,0 +1,7 @@
+import {config} from 'dotenv';
+
+config();
+
+const googleApiKey= process.env.GOOGLE_MAP_API_KEY
+
+export default googleApiKey;

@@ -1,0 +1,58 @@
+/* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+
+ *{
+    box-sizing: border-box;
+ }
+ #map {
+    height: 50%;
+    width: 70%;
+    margin: auto;
+    margin-top: 10%;
+  }
+  .bg-image {
+    /* The image used */
+    background-image: url('../images/map/ridehailing.jpeg');
+  
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  
+    /* Full height */
+    height: 100%;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* 
+   * Optional: Makes the sample page fill the window. 
+   */
+  html,
+  body {
+    /* background-repeat: no-repeat;
+    background-size: contain; */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #floating-panel {
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: "Roboto", "sans-serif";
+    line-height: 30px;
+    padding-left: 10px;
+  }
+  
+  
