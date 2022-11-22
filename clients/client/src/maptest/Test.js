@@ -1,35 +1,61 @@
-import { useMemo } from "react";
-import {GoogleMap, useLoadScript, MarkerF} from "@react-google-maps/api"
-import googleApiKey from "../config/index";
-import getTestGeolocation from "./geolocationApi";
+import { useEffect, useMemo, useState } from "react";
+import {GoogleMap, useLoadScript, MarkerF} from "@react-google-maps/api";
+import {
+	Combobox,
+	ComboboxInput,
+	ComboboxPopover,
+	ComboboxList,
+	ComboboxOption,
+	ComboboxOptionText,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
+import axios from 'axios';
 
 export default function Test(){
-    const {isLoaded} = useLoadScript({googleMapsApiKey: "AIzaSyCaWw-sX8UZeeVWOYgvmHCzV-PIb7FGbgk"});
+    const [lat, setLat] = useState('');
+    const [lng, setLng] = useState('');
+
+        navigator.geolocation.watchPosition(position =>{
+            setLat(position.coords.latitude)
+            setLng(position.coords.longitude)
+        })
+
+    const {isLoaded} = useLoadScript({googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY, libraries:["places"]});
 
     if(!isLoaded){
         return <div>Loading...</div>
     }
-    return <Map usersPosition={getUserLocation()} destinationPosition = {{lat:6.235737, lng:5.5734694}} />
+    return ( 
+    <Map usersPosition={{lat, lng}} destinationPosition = {{lat:6.245737, lng:5.5734694}} />)
 }
 
-const getUserLocation =  async () => {
-    return await getTestGeolocation()
-};
+function Map(props){
+    const [selected, setSelected] = useState(null)
+    return <>
+        <div className="places-container">
+        <PlacesAutoComplete setSelected={setSelected} />
+        </div>
+        <GoogleMap zoom={15} center={props.usersPosition} mapContainerClassName="map" >
 
-function Map(props){ 
-    // const usersPosition = {lat:44.1, lng:-80.02}
-    return <GoogleMap zoom={15} center={{lat:6.235737, lng:5.5734694}} mapContainerClassName="map" >
+            <MarkerF position={props.destinationPosition} icon={{
+                url: "http://maps.google.com/mapfiles/kml/pal2/icon13.png",
+                scale: 2,
+                
+            }}/>
 
-    <MarkerF position={props.destinationPosition} icon={{
-        url: "http://maps.google.com/mapfiles/kml/pal2/icon13.png",
-        scale: 2
-    }}/>
+            <MarkerF position={props.usersPosition} icon={{
+                url: "http://maps.google.com/mapfiles/kml/pal4/icon45.png",
+                scale:  0.2
+            }}/>
 
-    <MarkerF position={props.usersPosition} icon={{
-        url: "http://maps.google.com/mapfiles/kml/pal4/icon45.png",
-        scale:  0.2
-    }}/>
-    {/* <p>{String()}</p> */}
-</GoogleMap>
-        
+            {setSelected && <MarkerF position={selected}/>}
+
+        </GoogleMap>
+    </>
+}
+
+const PlacesAutoComplete = ()=>{
+    return <>
+
+    </>
 }
