@@ -27,4 +27,4 @@ app.use(function (req: Request, res: Response, next: NextFunction) {
   next(createError(404))
 })
 
-module.exports = app
+export default app

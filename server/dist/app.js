@@ -25,4 +25,4 @@ app.use('/users', users_1.default);
 app.use(function (req, res, next) {
     next((0, http_errors_1.default)(404));
 });
-module.exports = app;
+exports.default = app;
