@@ -12,21 +12,12 @@
     margin: auto;
     margin-top: 10%;
   }
-  .bg-image {
-    /* The image used */
-    background-image: url('../images/map/ridehailing.jpeg');
-  
-    /* Add the blur effect */
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-  
-    /* Full height */
-    height: 100%;
-  
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+
+  .map {
+    height: 80vh;
+    width: 80%;
+    margin: auto;
+    margin: 10%;
   }
   
   /* 
@@ -34,8 +25,9 @@
    */
   html,
   body {
-    /* background-repeat: no-repeat;
-    background-size: contain; */
+    /* background-image: url('../images/map/ridehailing.jpeg'); */
+    background-repeat: no-repeat;
+    background-size: contain;
     height: 100%;
     margin: 0;
     padding: 0;

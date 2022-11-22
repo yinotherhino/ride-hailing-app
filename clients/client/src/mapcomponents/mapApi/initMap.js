@@ -1,4 +1,8 @@
-function initMap(lat= 41.85, lng= -87.65) {
+
+
+const google = window.google;
+
+async function initMap(lat= 41.85, lng= -87.65) {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const map = new google.maps.Map(
@@ -53,7 +57,7 @@ function initMap(lat= 41.85, lng= -87.65) {
       travelMode: google.maps.TravelMode['DRIVING']
   };
   directionsService.route(request, function(response, status) {
-    if (status == 'OK') {
+    if (status === 'OK') {
       //travel time
       console.log(response.routes[0].legs[0].duration.value)
       directionsRenderer.setDirections(response);
@@ -67,18 +71,18 @@ function initMap(lat= 41.85, lng= -87.65) {
     map.fitBounds(bounds);
     directionsRenderer.setMap(map);
     
-    const onChangeHandler = function () {
-      calculateAndDisplayRoute(directionsService, directionsRenderer);
-    };
+    // const onChangeHandler = function () {
+    //   calculateAndDisplayRoute(directionsService, directionsRenderer);
+    // };
     
-    (document.getElementById("start") ).addEventListener(
-      "change",
-      onChangeHandler
-    );
-    (document.getElementById("end") ).addEventListener(
-      "change",
-      onChangeHandler
-    );
+    // (document.getElementById("start") ).addEventListener(
+    //   "change",
+    //   onChangeHandler
+    // );
+    // (document.getElementById("end") ).addEventListener(
+    //   "change",
+    //   onChangeHandler
+    // );
 }
 
 export default initMap;

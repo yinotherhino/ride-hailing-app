@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom/client";
-import Map from "./mapcomponents/map";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,14 +6,15 @@ import {
   Link
 } from 'react-router-dom';
 import './App.css';
+import Test from "./maptest/Test";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Link to="/map"> Map </Link>
+        <Link to="/test"> Map </Link>
         <Routes>
-          <Route exact path='/map' element={< Map />}></Route>
+          <Route exact path='/test' element={< Test />}></Route>
         </Routes>
       </div>
     </Router>

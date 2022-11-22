@@ -1,14 +1,18 @@
 import React from "react";
-import Head from "./head";
 import BottomScripts from './bottomscripts'
 import MapBody from './mapbody'
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import googleApiKey from "../config/index";
 
 class Map extends React.Component {
     render () {
       return (
         <div>
-        <Head />
-        <MapBody />
+        {/* <Head /> */}
+        <Wrapper apiKey={googleApiKey} >
+
+                <MapBody />
+        </Wrapper>
         <BottomScripts />
         </div>
 

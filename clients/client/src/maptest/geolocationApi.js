@@ -1,4 +1,3 @@
-import initMap from './initMap';
 
 let latitude;
 let longitude;
@@ -9,21 +8,20 @@ const options = {
 	maximumAge: 0,
 };
 
-async function success(pos) {
+function success(pos) {
 	const crd = pos.coords;
   longitude= 	crd.longitude
   latitude= crd.latitude
-  console.log(latitude, longitude)
-//   let location= {latitude, longitude}
-
-  await initMap(latitude, longitude)
+//   console.log(latitude, longitude)
+  return {lat:latitude, lng:longitude}
 }
 
 function error(err) {
 	document.getElementById('locationError').innerHTML = 'Error fetching location';
+	return null
 }
-const getGeolocation = ()=>{
+const getTestGeolocation = async()=>{
 	navigator.geolocation.watchPosition(success, error, options)
 }
 
-export default getGeolocation;
+export default getTestGeolocation;
