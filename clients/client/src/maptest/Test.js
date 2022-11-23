@@ -50,8 +50,8 @@ function Map(props){
     return (
     <>
         <div className="places-container">
-        <PlacesAutoComplete setSelected={setSelected} />
         <button className="order-ride" onClick={postDest()}>Order Ride!</button>
+        <PlacesAutoComplete setSelected={setSelected} />
         </div>
         <GoogleMap zoom={15} center={JSON.parse(JSON.stringify(props.usersPosition))} mapContainerClassName="map" >
 
