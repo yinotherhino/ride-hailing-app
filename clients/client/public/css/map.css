@@ -19,7 +19,37 @@
     margin: auto;
     margin: 10%;
   }
-  
+  .combobox-input{
+    margin: auto;
+    padding: 10px;
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: 1px solid green;
+  }
+  .places-container{
+    text-align: center;
+    position: relative;
+    top: 5rem;
+    z-index: 1;
+  }
+  .places-container .div{
+    display: inline-block;
+  }
+  .combobox-input:hover{
+    border: 1px solid yellowgreen;
+    
+  }
+
+  .order-ride{
+    padding: 8px;
+    border: none;
+    background-color: green;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .order-ride:hover{
+    background-color: yellowgreen;
+  }
   /* 
    * Optional: Makes the sample page fill the window. 
    */

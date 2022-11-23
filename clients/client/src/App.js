@@ -12,9 +12,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Link to="/test"> Map </Link>
+        <Link to="/map"> Map </Link>
         <Routes>
-          <Route exact path='/test' element={< Test />}></Route>
+          <Route exact path='/map' element={< Test />}></Route>
         </Routes>
       </div>
     </Router>
