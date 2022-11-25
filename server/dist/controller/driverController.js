@@ -1,0 +1,186 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.resendOTP = exports.DriverLogin = exports.verifyDriver = exports.DriverRegister = void 0;
+const uuid_1 = require("uuid");
+const config_1 = require("../config");
+const driverModel_1 = require("../model/driverModel");
+const utils_1 = require("../utils.ts/utils");
+const DriverRegister = async (req, res) => {
+    try {
+        const { email, password, fullName, address, phone, passport, typeOfCar, driverL, plateNumber, vechileNumber } = req.body;
+        const uuiduser = (0, uuid_1.v4)();
+        const validateResult = utils_1.registerForDriverSchema.validate(req.body, utils_1.options);
+        if (validateResult.error) {
+            res.status(400).json({
+                Error: validateResult.error.details[0].message
+            });
+        }
+        // generate salt
+        const salt = await (0, utils_1.GenerateSalt)();
+        const userPasword = await (0, utils_1.GeneratePassword)(password, salt);
+        //generate otp
+        const { otp, expiry } = (0, utils_1.GenerateOTP)();
+        // check if user exist
+        const User = await driverModel_1.DriverInstance.findOne({ where: { email: email } });
+        //Create User
+        if (!User) {
+            let user = await driverModel_1.DriverInstance.create({
+                id: uuiduser,
+                email,
+                password: userPasword,
+                salt,
+                fullName,
+                address,
+                phone,
+                passport,
+                otp,
+                otp_expiry: expiry,
+                typeOfCar,
+                driverL,
+                plateNumber,
+                vechileNumber,
+                verified: false,
+                role: 'driver'
+            });
+            // send otp
+            await (0, utils_1.onRequestOTP)(otp, phone);
+            // send email
+            const html = (0, utils_1.emailHtml)(otp);
+            await (0, utils_1.Mailsend)(config_1.fromAdminMail, email, config_1.userSubject, html);
+            // check if user is created
+            const User = await driverModel_1.DriverInstance.findOne({ where: { email: email } });
+            //Generate Signature
+            let signature = await (0, utils_1.GenerateSignature)({
+                id: User.id,
+                email: User.email,
+                verified: User.verified
+            });
+            return res.status(201).json({
+                message: 'User created successfully check your email or phone for OTP verification',
+                signature,
+                verified: User.verified,
+            });
+        }
+        return res.status(400).json({
+            message: 'User already exist',
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            Error: "Internal Server Error",
+            route: "/users/signup"
+        });
+    }
+};
+exports.DriverRegister = DriverRegister;
+// Verfiy user
+const verifyDriver = async (req, res) => {
+    try {
+        const token = req.params.signature;
+        const decode = await (0, utils_1.verifySignature)(token);
+        // check if user exist
+        const User = await driverModel_1.DriverInstance.findOne({ where: { email: decode.email } });
+        if (User) {
+            const { otp } = req.body;
+            if (User.otp === +otp && User.otp_expiry >= new Date()) {
+                const updateUser = await driverModel_1.DriverInstance.update({ verified: true }, { where: { email: decode.email } });
+                //GENERATE NEW SIGNATURE
+                let signature = await (0, utils_1.GenerateSignature)({
+                    id: updateUser.id,
+                    email: updateUser.email,
+                    verified: updateUser.verified
+                });
+                if (updateUser) {
+                    const User = await driverModel_1.DriverInstance.findOne({ where: { email: decode.email } });
+                    return res.status(200).json({
+                        message: 'User verified successfully',
+                        signature,
+                        verified: User.verified,
+                    });
+                }
+            }
+        }
+        return res.status(400).json({
+            Error: 'Invalid credentials or OTP expired',
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            Error: "Internal Server Error",
+            route: "/users/verify"
+        });
+    }
+};
+exports.verifyDriver = verifyDriver;
+// Login user
+const DriverLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const validateResult = utils_1.LoginSchema.validate(req.body, utils_1.options);
+        if (validateResult.error) {
+            res.status(400).json({
+                Error: validateResult.error.details[0].message
+            });
+        }
+        const User = await driverModel_1.DriverInstance.findOne({ where: { email: email } });
+        if (User.verified === true) {
+            const validation = await (0, utils_1.validatePassword)(password, User.password, User.salt);
+            if (validation) {
+                //generate signature
+                let signature = await (0, utils_1.GenerateSignature)({
+                    id: User.id,
+                    email: User.email,
+                    verified: User.verified
+                });
+                return res.status(200).json({
+                    message: 'User logged in successfully',
+                    signature,
+                    email: User.email,
+                    verified: User.verified,
+                    role: User.role
+                });
+            }
+        }
+        return res.status(400).json({
+            Error: 'Invalid credentials',
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            Error: "Internal Server Error",
+            route: "/users/login"
+        });
+    }
+};
+exports.DriverLogin = DriverLogin;
+// resend otp
+const resendOTP = async (req, res) => {
+    try {
+        const token = req.params.signature;
+        const decode = await (0, utils_1.verifySignature)(token);
+        const User = await driverModel_1.DriverInstance.findOne({ where: { email: decode.email } });
+        if (User) {
+            const { otp, expiry } = (0, utils_1.GenerateOTP)();
+            const updateUser = await driverModel_1.DriverInstance.update({ otp, otp_expiry: expiry }, { where: { email: decode.email } });
+            if (updateUser) {
+                const User = await driverModel_1.DriverInstance.findOne({ where: { email: decode.email } });
+                await (0, utils_1.onRequestOTP)(otp, User.phone);
+                const html = (0, utils_1.emailHtml)(otp);
+                await (0, utils_1.Mailsend)(config_1.fromAdminMail, User.email, config_1.userSubject, html);
+                return res.status(200).json({
+                    message: 'OTP resent successfully',
+                });
+            }
+        }
+        return res.status(400).json({
+            Error: "Error resending OTP",
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            Error: "Internal Server Error",
+            route: "/users/resend-otp/:signature"
+        });
+    }
+};
+exports.resendOTP = resendOTP;

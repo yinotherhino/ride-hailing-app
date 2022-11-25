@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const userController_1 = require("../controller/userController");
+const driverController_1 = require("../controller/driverController");
 const router = express_1.default.Router();
-/* GET users listing. */
-router.post('/register', userController_1.UserRegister);
-router.post('/verfiy/:signature', userController_1.verifyUser);
-router.post('/login', userController_1.UserLogin);
+/* GET driver listing. */
+router.post('/register', driverController_1.DriverRegister);
+router.post('/verfiy/:signature', driverController_1.verifyDriver);
+router.post('/login', driverController_1.DriverLogin);
 exports.default = router;

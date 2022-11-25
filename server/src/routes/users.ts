@@ -1,11 +1,17 @@
 import { NextFunction } from "express";
 import { Request, Response } from "express";
-var express = require('express');
-var router = express.Router();
+import express from 'express';
+import { UserLogin, UserRegister, verifyUser } from "../controller/userController";
+const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req:Request, res:Response, next:NextFunction) {
-  res.send('respond with a resource');
-});
+router.post('/register', UserRegister)
 
-module.exports = router;
+router.post('/verfiy/:signature', verifyUser)
+
+router.post('/login', UserLogin)
+
+
+
+
+export default router;
