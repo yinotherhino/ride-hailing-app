@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Link to="/map"> Map </Link>
+        {/* <Link to="/map"> Map </Link> */}
         <Routes>
           <Route exact path='/map' element={< Test />}></Route>
         </Routes>

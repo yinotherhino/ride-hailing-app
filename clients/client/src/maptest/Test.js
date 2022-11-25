@@ -47,6 +47,7 @@ export default function Test(){
 
 export function Map(props){
     const [selected, setSelected] = useState(null)
+    //I will send this information to the backend which can then be used to populate the database and also inform the driver of the users location and destination.
     function postDest () {
         axiosPost("http://localhost/3001/travel", {location:props.usersPosition, destination:props.destinationPosition})
     }
