@@ -57,7 +57,7 @@ function Sidebar() {
           <CloseIcon  id="closeicon" onClick={closeMenu  } />
           <MenuIcon id="menuicon" onClick={openMenu} />
           <div className="logo">
-            <img src="./benz1-removebg-preview.png" alt="logo" />
+            <img src="./images/map/benz1-removebg-preview.png" alt="logo" />
             {/* <h5>Safe Ride</h5> */}
           </div>
 
