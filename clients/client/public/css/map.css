@@ -7,17 +7,16 @@
     box-sizing: border-box;
  }
  #map {
-    height: 50%;
-    width: 70%;
+    height: 80%;
+    width: 80%;
     margin: auto;
-    margin-top: 10%;
+    margin-top: 0;
   }
 
   .map {
     height: 80vh;
-    width: 80%;
+    width: 100%;
     margin: auto;
-    margin: 10%;
   }
   .combobox-input{
     margin: auto;
@@ -29,7 +28,7 @@
   .places-container{
     text-align: center;
     position: relative;
-    top: 5rem;
+    top: 0;
     z-index: 1;
   }
   .places-container .div{

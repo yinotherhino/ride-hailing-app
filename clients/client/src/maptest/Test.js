@@ -14,6 +14,7 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import axiosPost from "./axiosJob";
+import Sidebar from "../components/Sidebar";
 // import axiosPost from './axiosJob';
 
 export default function Test(){
@@ -35,14 +36,16 @@ export default function Test(){
     if(!isLoaded){
         return <div>Loading Map...</div>
     }
-    return ( 
-    <Map usersPosition={{lat, lng}} destinationPosition = {{lat:6.245737, lng:5.5734694}} />)
+    return (<>
+        <Sidebar />
+
+    </> )
 
 }
 
 
 
-function Map(props){
+export function Map(props){
     const [selected, setSelected] = useState(null)
     function postDest () {
         axiosPost("http://localhost/3001/travel", {location:props.usersPosition, destination:props.destinationPosition})
