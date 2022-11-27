@@ -15,6 +15,7 @@ import {
 import "@reach/combobox/styles.css";
 import axiosPost from "./axiosJob";
 import Sidebar from "../components/Sidebar";
+import RideAccepted, { toggleModal } from "./RideAccepted";
 
 
 
@@ -49,10 +50,14 @@ export default function Test(){
 
 export function Map(props){
     const [selected, setSelected] = useState(null)
+    const [notSelected, notSetSelected] = useState(true)
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const [directionsResponse, setDirectionsResponse] = useState(null)
     const [distance, setDistance] = useState('')
     const [duration, setDuration] = useState('')
+
+    const usersPosRef = useRef();
+    const destinationRef = useRef();
 
     async function calcRoute(origin, destination){
         // eslint-disable-next-line no-undef
@@ -67,7 +72,7 @@ export function Map(props){
         setDirectionsResponse(results)
         setDistance(results.routes[0].legs[0].distance.value)
         setDuration(results.routes[0].legs[0].duration.value)
-
+        // axios.post(url, {usersPos:origin, destination:{lat:destination.lat, lng:destination.lng}, duration, distance})
     } 
 
     const PlacesAutoComplete = ({setSelected})=>{
@@ -88,8 +93,7 @@ export function Map(props){
             const results = await getGeocode({address})
             const {lat, lng} = await getLatLng(results[0])
             // axiosPost('', {lat, lng})
-            setSelected(JSON.parse(JSON.stringify({lat, lng})))
-            const direct= JSON.parse(JSON.stringify({lat, lng}))
+            setSelected(JSON.parse(JSON.stringify({lat, lng})));
             calcRoute(props.usersPosition, {lat:lat, lng:lng} );
             
         };
@@ -127,8 +131,9 @@ export function Map(props){
     return (
     <>
         <div className="places-container">
-        <button className="order-ride"  >Order Ride!</button>
+        <button className="order-ride" onClick={toggleModal} disabled={notSelected} type="button" >Order Ride!</button>
         <PlacesAutoComplete setSelected={setSelected} />
+        <RideAccepted />
         </div>
         <GoogleMap 
         zoom={15} 

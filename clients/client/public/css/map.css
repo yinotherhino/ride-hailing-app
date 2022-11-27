@@ -3,6 +3,7 @@
  * that contains the map. 
  */
 
+
  *{
     box-sizing: border-box;
  }
@@ -13,12 +14,37 @@
     margin-top: 0;
   }
 
+  .ridebutton{
+    margin: 10px;
+  }
+.modal-content{
+  background-color: black;
+  color: #f9f9f9;
+  padding: 50px;
+}
+
+  body.open .background{
+    visibility: visible;
+    opacity: 1;
+  }
+
+  body.open .modal-content {
+    animation: modal-content-in 1s both;
+  }
+  body.open > .places-container{
+    scale: 0.75;;
+  }
+
+  body.open.modal{
+    animation: modal-in 1s both;
+  }
+
   .map {
     height: 100%;
     width: 100%;
     margin: auto;
     position: relative;
-    top: -8%;
+    top: 0;
   }
 
   .combobox-input{
@@ -31,8 +57,9 @@
 
   .places-container{
     text-align: center;
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 100px;
+    margin-left: 20%;
     z-index: 1;
   }
   .places-container .div{
@@ -79,5 +106,92 @@
     line-height: 30px;
     padding-left: 10px;
   }
+
+  :is(.places-container, .modal, .background ){
+    transition: 0.5s;
+  }
   
+  /* @media only screen and (max-width:1000px){
+    .places-container{
+      margin-left: 300px;
+    }
+    
+  }*/
+
+  /* MODAL CSS */
+  .background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    visibility: hidden;
+    background: rgba(0, 0, 0,0.5 );
+
+  }
+
+  .modal{
+    position: fixed;
+    top: 50%;
+    right: -300px;
+    translate: 50% -50%;
+    background: #1d2025;
+    color: #f9f9f9;
+    padding: 48px 40px;
+    width: 300px;
+    height: 118px;
+    border-radius: 12px;
+  }
+
+  @keyframes modal-in{
+    0%,
+    50%{
+      width: 118px;
+      border-radius: 50px;
+    }
+    55%,
+    100% {
+      right: 50%;
+
+    }
+    60%{
+      width: 300px;
+      border-radius: 12px;
+    }
+    75%{
+      translate: 50% -50%;
+      
+    }
+
+  }
+
+  @keyframes modal-content-in {
+    0% ,
+    75% {
+      opacity: 0;
+    }
+    85%,
+    100%{
+      opacity: 1;
+    }
+  }
+
   
+
+
+  @media only screen and (max-width:600px) and (min-width:500px){
+    .places-container{
+      margin-left: 100px;
+    }
+    
+  } 
+
+  @media only screen and (min-width:1000px){
+    .places-container{
+      margin-left: 400px;
+    }
+    
+  } 

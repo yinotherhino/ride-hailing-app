@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import Test from "./maptest/Test";
+import RideAccepted from "./maptest/RideAccepted";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         {/* <Link to="/map"> Map </Link> */}
         <Routes>
           <Route exact path='/map' element={< Test />}></Route>
+          <Route exact path='/riding' element={< RideAccepted />}></Route>
         </Routes>
       </div>
     </Router>
