@@ -1,0 +1,106 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.Sidebar {
+  display: flex;
+  flex-direction: row;
+}
+.Sidebar .SidebarItems1 {
+  height: 100vw;
+  width: 250px;
+  background-color: #2f4050;
+}
+.Sidebar .SidebarItems1:hover{
+    width: 250px;
+}
+.SidebarItems1 .SidebarList {
+  height: 100%;
+  width: 100%;
+  /* color: black; */
+  padding: 0;
+}
+
+.SidebarItems1 .SidebarList .row {
+  width: 100%;
+  height: 60px;
+  /* border: 1px solid black; */
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.SidebarList .row:hover {
+  background-color: #293846;
+  cursor: pointer;
+}
+
+.row .icon {
+  flex: 30%;
+  display: grid;
+  place-items: center;
+}
+
+.row #title {
+  flex: 70%;
+}
+
+.SidebarItems2 {
+  height: 100vh;
+  width: 100%;
+  background-color: #f5f6fa;
+}
+
+.SidebarItems2 .top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #2f4050;
+    color: white;
+    height: 70px;
+    align-items: center;
+}
+.SidebarItems2 .top:hover {
+    background-color: #293846;
+    cursor: pointer;
+}
+.SidebarItems2 .logo{
+    margin-top: 0%;
+}
+.SidebarItems2 .logo img{
+    height: 100px;
+}
+
+.SidebarItems2 .Search{
+
+    background-color:white;
+}
+.SidebarItems1 .SidebarList .hidden-row{
+    display: none;
+}
+#menuicon, #closeicon{
+    display: none;
+}
+
+@media only screen and (max-width:500px){
+    .SidebarItems1{
+        display:none
+    }
+    #closeicon{
+        display: none;
+    }
+    #menuicon{
+        display: block;
+    }
+}
