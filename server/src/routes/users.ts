@@ -1,4 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express'
+import {
+  UserLogin,
+  UserRegister,
+  verifyUser,
+} from '../controllers/userController'
 
 const router = express.Router()
 
@@ -10,4 +15,12 @@ router.get('/', function (req: Request, res: Response, next: NextFunction) {
 })
 
 router.post('/book-ride', bookRide)
+
+/* GET users listing. */
+router.post('/register', UserRegister)
+
+router.post('/verify/:signature', verifyUser)
+
+router.post('/login', UserLogin)
+
 export default router
