@@ -6,7 +6,7 @@ import { emailHtml, GenerateOTP, GeneratePassword, GenerateSalt, GenerateSignatu
 
 export const UserRegister = async (req: Request, res: Response) => {
     try {
-      const { email, password, confirm_password, phone } = req.body
+      const { email, password, confirm_password, phone, address, fullName } = req.body
       const uuiduser = uuidv4();
       const validateResult = UserSchema.validate(req.body, options);
       if (validateResult.error) {
