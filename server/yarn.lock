@@ -144,6 +144,13 @@
   resolved "https://registry.npmjs.org/@types/http-errors/-/http-errors-2.0.1.tgz"
   integrity sha512-/K3ds8TRAfBvi5vfjuz8y6+GiAYBZ0x4tXv1Av6CWBWn0IlADc+ZX9pMq7oU0fNQPnBwIZl3rmeLp6SBApbxSQ==
 
+"@types/joi@^17.2.3":
+  version "17.2.3"
+  resolved "https://registry.yarnpkg.com/@types/joi/-/joi-17.2.3.tgz#b7768ed9d84f1ebd393328b9f97c1cf3d2b94798"
+  integrity sha512-dGjs/lhrWOa+eO0HwgxCSnDm5eMGCsXuvLglMghJq32F6q5LyyNuXb41DHzrg501CKNOSSAHmfB7FDGeUnDmzw==
+  dependencies:
+    joi "*"
+
 "@types/jsonwebtoken@^8.5.9":
   version "8.5.9"
   resolved "https://registry.npmjs.org/@types/jsonwebtoken/-/jsonwebtoken-8.5.9.tgz"
@@ -356,6 +363,11 @@ binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
+
+bluebird@^3.5.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
+  integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
 body-parser@1.18.3:
   version "1.18.3"
@@ -634,9 +646,9 @@ detect-libc@^2.0.0:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.0.1.tgz#e1897aa88fa6ad197862937fbc0441ef352ee0cd"
   integrity sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==
 
-dotenv@*:
+dotenv@*, dotenv@^16.0.3:
   version "16.0.3"
-  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.0.3.tgz"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
   integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 dottie@^2.0.2:
@@ -1051,7 +1063,7 @@ jade@~1.11.0:
     void-elements "~2.0.1"
     with "~4.0.0"
 
-joi@^17.7.0:
+joi@*, joi@^17.7.0:
   version "17.7.0"
   resolved "https://registry.npmjs.org/joi/-/joi-17.7.0.tgz"
   integrity sha512-1/ugc8djfn93rTE3WRKdCzGGt/EtiYKxITMO4Wiv6q5JL1gl9ePt4kBsl1S499nbosspfctIQTpYIhSmHA3WAg==
@@ -1359,12 +1371,20 @@ node-addon-api@^5.0.0:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-5.0.0.tgz#7d7e6f9ef89043befdb20c1989c905ebde18c501"
   integrity sha512-CvkDw2OEnme7ybCykJpVcKH+uAOLV2qLqiyla128dN9TkEWfrYmxG6C2boDe5KcNQqZF3orkqzGgOMvZ/JNekA==
 
-node-fetch@^2.6.7:
+node-fetch@^2.6.0, node-fetch@^2.6.7:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
   dependencies:
     whatwg-url "^5.0.0"
+
+node-geocoder@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/node-geocoder/-/node-geocoder-4.2.0.tgz#340a62636877dc3f8bce3554e9e13bbe85409624"
+  integrity sha512-ZvUiOHWHLVGlrYPvazXj+VQ9oK+EOMinh/5vWoBwOQiV0eCU7GPtEWrMRNnKvmBVOzZHb1eFe9uoKMFeyygMVA==
+  dependencies:
+    bluebird "^3.5.2"
+    node-fetch "^2.6.0"
 
 node-gyp@8.x:
   version "8.4.1"
@@ -1717,9 +1737,9 @@ sequelize-pool@^7.1.0:
   resolved "https://registry.npmjs.org/sequelize-pool/-/sequelize-pool-7.1.0.tgz"
   integrity sha512-G9c0qlIWQSK29pR/5U2JF5dDQeqqHRragoyahj/Nx4KOOQ3CPPfzxnfqFPCSB7x5UgjOgnZ61nSxz+fjDpRlJg==
 
-sequelize@^6.25.8:
+sequelize@^6.25.7:
   version "6.25.8"
-  resolved "https://registry.npmjs.org/sequelize/-/sequelize-6.25.8.tgz"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.25.8.tgz#6283b7dc0de6bda12bbfa4909f8ef00dfb13ec32"
   integrity sha512-GDjbN3P9KRjxL+ATNPMWU0RFAO3KviGzvowajqPCkvEdcEW9CFL4d0iDR/SFAf+JiQ7/2BQ4O3PBLBxNlnVNWw==
   dependencies:
     "@types/debug" "^4.1.7"

@@ -13,7 +13,8 @@ exports.registerForDriverSchema = joi_1.default.object().keys({
     email: joi_1.default.string().email().required(),
     phone: joi_1.default.string().required(),
     password: joi_1.default.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-    confirm_password: joi_1.default.any().equal(joi_1.default.ref('password'))
+    confirm_password: joi_1.default.any()
+        .equal(joi_1.default.ref('password'))
         .required()
         .label('confirm password')
         .messages({ 'any.only': '{{#label}} does not match' }),
@@ -29,7 +30,8 @@ exports.UserSchema = joi_1.default.object().keys({
     email: joi_1.default.string().email().required(),
     phone: joi_1.default.string().required(),
     password: joi_1.default.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-    confirm_password: joi_1.default.any().equal(joi_1.default.ref('password'))
+    confirm_password: joi_1.default.any()
+        .equal(joi_1.default.ref('password'))
         .required()
         .label('confirm password')
         .messages({ 'any.only': '{{#label}} does not match' }),
@@ -54,26 +56,25 @@ const verifySignature = async (signature) => {
 exports.verifySignature = verifySignature;
 exports.LoginSchema = joi_1.default.object().keys({
     email: joi_1.default.string().email().required(),
-    password: joi_1.default.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+    password: joi_1.default.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
 });
 const validatePassword = async (enteredPassword, savedPassword, salt) => {
-    return await (0, exports.GeneratePassword)(enteredPassword, salt) === savedPassword;
+    return (await (0, exports.GeneratePassword)(enteredPassword, salt)) === savedPassword;
 };
 exports.validatePassword = validatePassword;
 const GenerateOTP = () => {
     const otp = Math.floor(1000 + Math.random() * 9000);
     const expiry = new Date();
-    expiry.setTime(new Date().getTime() + (30 * 60 * 1000));
+    expiry.setTime(new Date().getTime() + 30 * 60 * 1000);
     return { otp, expiry };
 };
 exports.GenerateOTP = GenerateOTP;
 const onRequestOTP = async (otp, toPhoneNumber) => {
     const client = require('twilio')(config_1.AccountSID, config_1.AuthToken);
-    const response = client.messages
-        .create({
+    const response = client.messages.create({
         body: `Your OTP is ${otp}`,
         to: toPhoneNumber,
-        from: config_1.fromAdminPhone
+        from: config_1.fromAdminPhone,
     });
     return response;
 };
@@ -85,15 +86,18 @@ const transport = nodemailer_1.default.createTransport({
         pass: config_1.GmailPass,
     },
     tls: {
-        rejectUnauthorized: false
-    }
+        rejectUnauthorized: false,
+    },
 });
 // export const sendEmail = () => {
 // }
 const Mailsend = async (from, to, subject, html) => {
     try {
         const response = await transport.sendMail({
-            from: config_1.fromAdminMail, to, subject: config_1.userSubject, html
+            from: config_1.fromAdminMail,
+            to,
+            subject: config_1.userSubject,
+            html,
         });
         return response;
     }
@@ -116,7 +120,7 @@ exports.options = {
     abortEarly: false,
     errors: {
         wrap: {
-            label: "",
+            label: '',
         },
     },
 };

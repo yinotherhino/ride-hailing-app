@@ -1,3 +1,4 @@
+
 import {Sequelize} from 'sequelize';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -17,3 +18,4 @@ export const GmailPass = process.env.GmailPass;
 export const fromAdminMail = process.env.fromAdminMail as string;
 export const userSubject = process.env.userSubject as string;
 export const APP_SECRET = process.env.APP_SECRET as string;
+

@@ -1,17 +1,26 @@
-import { NextFunction } from "express";
-import { Request, Response } from "express";
-import express from 'express';
-import { UserLogin, UserRegister, verifyUser } from "../controller/userController";
-const router = express.Router();
+import express, { Request, Response, NextFunction } from 'express'
+import {
+  UserLogin,
+  UserRegister,
+  verifyUser,
+} from '../controllers/userController'
+
+const router = express.Router()
+
+import { bookRide } from '../controllers/LocationControllers'
+
+/* GET users listing. */
+router.get('/', function (req: Request, res: Response, next: NextFunction) {
+  res.send('respond with a resource')
+})
+
+router.post('/book-ride', bookRide)
 
 /* GET users listing. */
 router.post('/register', UserRegister)
 
-router.post('/verfiy/:signature', verifyUser)
+router.post('/verify/:signature', verifyUser)
 
 router.post('/login', UserLogin)
 
-
-
-
-export default router;
+export default router
