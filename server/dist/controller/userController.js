@@ -7,7 +7,7 @@ const userModel_1 = require("../model/userModel");
 const utils_1 = require("../utils.ts/utils");
 const UserRegister = async (req, res) => {
     try {
-        const { email, password, confirm_password, phone } = req.body;
+        const { email, password, confirm_password, phone, address, fullName } = req.body;
         const uuiduser = (0, uuid_1.v4)();
         const validateResult = utils_1.UserSchema.validate(req.body, utils_1.options);
         if (validateResult.error) {
